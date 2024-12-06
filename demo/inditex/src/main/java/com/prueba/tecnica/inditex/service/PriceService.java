@@ -9,7 +9,10 @@ import com.prueba.tecnica.inditex.repository.IRepository;
 import com.prueba.tecnica.inditex.repository.PriceRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PriceService extends AbstractService<PriceEntity, PriceDTO> {
@@ -27,6 +30,14 @@ public class PriceService extends AbstractService<PriceEntity, PriceDTO> {
         return priceRepository.findByProductIdAndBrandId(productId, brandId).stream()
                 .map(getCopier()::toDTO)
                 .toList();
+    }
+
+    // Método adicional: Encontrar el precio activo en una fecha específica
+    public Optional<PriceDTO> findActivePriceByProductIdAndBrandIdAndDate(Long productId, Long brandId, LocalDateTime date) {
+        return priceRepository.findByProductIdAndBrandId(productId, brandId).stream()
+                .filter(price -> date.isAfter(price.getStartDate()) && date.isBefore(price.getEndDate()))
+                .max(Comparator.comparingInt(PriceEntity::getPriority))
+                .map(getCopier()::toDTO);
     }
 
     @Override
