@@ -17,6 +17,8 @@ public abstract class BaseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    private Long id;
+    protected Long id;
 
+    protected BaseDTO() {
+    }
 }
