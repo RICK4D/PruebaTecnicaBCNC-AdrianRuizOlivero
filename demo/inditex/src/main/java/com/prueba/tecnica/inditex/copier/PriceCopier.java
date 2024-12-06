@@ -5,8 +5,9 @@ import com.prueba.tecnica.inditex.entity.BrandEntity;
 import com.prueba.tecnica.inditex.entity.PriceEntity;
 import com.prueba.tecnica.inditex.entity.ProductEntity;
 import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PriceCopier extends AbstractCopier<PriceEntity, PriceDTO> {
 
     @Override
@@ -26,6 +27,8 @@ public class PriceCopier extends AbstractCopier<PriceEntity, PriceDTO> {
 
     @Override
     public PriceEntity toEntity(@NonNull PriceDTO dto) {
+        // Puntos de mejora se podría realizar respectivos repository para que la entidad que se construya
+        // tenga el contenido completo de las entidades Brand y Product
         BrandEntity brand = BrandEntity.builder().id(dto.getBrandId()).build();
         ProductEntity product = ProductEntity.builder().id(dto.getProductId()).build();
 
