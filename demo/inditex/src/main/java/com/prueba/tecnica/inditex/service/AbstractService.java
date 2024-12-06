@@ -15,29 +15,29 @@ public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
     protected abstract AbstractCopier<E, D> getCopier();
 
     // Guardar una entidad (desde DTO)
-    protected D save(@NonNull D dto) {
+    public D save(@NonNull D dto) {
         E entity = getCopier().toEntity(dto);
         E savedEntity = getRepository().save(entity);
         return getCopier().toDTO(savedEntity);
     }
 
     // Buscar por ID (devuelve un Optional del DTO)
-    protected Optional<D> findById(@NonNull Long id) {
+    public Optional<D> findById(@NonNull Long id) {
         return getRepository().findById(id).map(getCopier()::toDTO);
     }
 
     // Listar todas las entidades (como lista de DTOs)
-    protected List<D> findAll() {
+    public List<D> findAll() {
         return getRepository().findAll().stream().map(getCopier()::toDTO).toList();
     }
 
     // Eliminar por ID
-    protected void deleteById(@NonNull Long id) {
+    public void deleteById(@NonNull Long id) {
         getRepository().deleteById(id);
     }
 
     // Actualizar una entidad (desde DTO)
-    protected D update(@NonNull D dto) {
+    public D update(@NonNull D dto) {
         E entity = getCopier().toEntity(dto);
         E updatedEntity = getRepository().update(entity);
         return getCopier().toDTO(updatedEntity);
