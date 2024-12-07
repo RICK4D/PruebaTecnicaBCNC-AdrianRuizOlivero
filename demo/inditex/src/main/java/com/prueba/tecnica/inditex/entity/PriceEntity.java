@@ -29,7 +29,7 @@ public class PriceEntity extends BaseEntity {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "currency", nullable = false, length = 10)
+    @Column(name = "currency", nullable = false, length = 5)
     private String currency;
 
     @ManyToOne
@@ -60,7 +60,7 @@ public class PriceEntity extends BaseEntity {
     @Override
     public String toString() {
         return "Price{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", brand=" + (brand != null ? brand.getId() : null) +
                 ", product=" + (product != null ? product.getId() : null) +
                 ", startDate=" + startDate +

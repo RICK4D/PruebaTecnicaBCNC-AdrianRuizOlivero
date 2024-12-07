@@ -1,5 +1,6 @@
 package com.prueba.tecnica.inditex.dto;
 
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @SuperBuilder
+@MappedSuperclass
 public abstract class BaseDTO implements Serializable {
 
     @Serial
