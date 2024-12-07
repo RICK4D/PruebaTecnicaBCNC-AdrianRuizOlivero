@@ -7,6 +7,7 @@ import com.prueba.tecnica.inditex.dto.PriceDTO;
 import com.prueba.tecnica.inditex.entity.PriceEntity;
 import com.prueba.tecnica.inditex.repository.IRepository;
 import com.prueba.tecnica.inditex.repository.PriceRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,16 @@ public class PriceService extends AbstractService<PriceEntity, PriceDTO> {
         this.priceCopier = priceCopier;
     }
 
+    @Override
+    protected IRepository<PriceEntity, Long> getRepository() {
+        return this.priceRepository;
+    }
+
+    @Override
+    protected AbstractCopier<PriceEntity, PriceDTO> getCopier() {
+        return this.priceCopier;
+    }
+
     // Método adicional: Encontrar precios por productId y brandId
     public List<PriceDTO> findByProductIdAndBrandId(Long productId, Long brandId) {
         return priceRepository.findByProductIdAndBrandId(productId, brandId).stream()
@@ -40,13 +51,14 @@ public class PriceService extends AbstractService<PriceEntity, PriceDTO> {
                 .map(getCopier()::toDTO);
     }
 
-    @Override
-    protected IRepository<PriceEntity, Long> getRepository() {
-        return this.priceRepository;
+    public Optional<PriceDTO> findMoreRelevancePriceBetweenDates(Long productId, Long brandId, LocalDateTime date) {
+        return priceRepository.findPricesBetweenDates(productId, brandId, date).stream()
+                .findFirst()
+                .map(getCopier()::toDTO);
     }
 
-    @Override
-    protected AbstractCopier<PriceEntity, PriceDTO> getCopier() {
-        return this.priceCopier;
+    public List<PriceDTO> findPriceBetweenDates(Long productId, Long brandId, LocalDateTime date) {
+        return getCopier().toDTOList(priceRepository.findPricesBetweenDates(productId, brandId, date));
     }
+
 }

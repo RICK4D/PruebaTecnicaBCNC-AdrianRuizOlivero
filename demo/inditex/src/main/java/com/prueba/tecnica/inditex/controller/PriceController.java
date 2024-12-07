@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -67,6 +68,17 @@ public class PriceController {
             @RequestParam String date) {
         LocalDateTime dateTime = LocalDateTime.parse(date);
         return priceService.findActivePriceByProductIdAndBrandIdAndDate(productId, brandId, dateTime)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/applicable")
+    public ResponseEntity<PriceDTO> getApplicablePrice(
+            @RequestParam Long productId,
+            @RequestParam Long brandId,
+            @RequestParam String date) {
+        LocalDateTime dateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return priceService.findMoreRelevancePriceBetweenDates(productId, brandId, dateTime)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
