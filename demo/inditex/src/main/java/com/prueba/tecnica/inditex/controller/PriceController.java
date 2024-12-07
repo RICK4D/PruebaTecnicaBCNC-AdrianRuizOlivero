@@ -1,6 +1,7 @@
 package com.prueba.tecnica.inditex.controller;
 
 import com.prueba.tecnica.inditex.dto.PriceDTO;
+import com.prueba.tecnica.inditex.exception.EntityNotFoundException;
 import com.prueba.tecnica.inditex.service.PriceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class PriceController {
 
     // Obtener un precio por ID
     @GetMapping("/{id}")
-    public ResponseEntity<PriceDTO> getPrice(@PathVariable Long id) {
+    public ResponseEntity<PriceDTO> getPrice(@PathVariable Long id) throws EntityNotFoundException, IllegalArgumentException {
         return priceService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -34,20 +35,21 @@ public class PriceController {
 
     // Crear un nuevo precio
     @PostMapping
-    public ResponseEntity<PriceDTO> createPrice(@RequestBody PriceDTO priceDTO) {
+    public ResponseEntity<PriceDTO> createPrice(@RequestBody PriceDTO priceDTO) throws EntityNotFoundException, IllegalArgumentException {
         return ResponseEntity.ok(priceService.save(priceDTO));
     }
 
     // Actualizar un precio existente
     @PutMapping("/{id}")
-    public ResponseEntity<PriceDTO> updatePrice(@PathVariable Long id, @RequestBody PriceDTO priceDTO) {
+    public ResponseEntity<PriceDTO> updatePrice(@PathVariable Long id, @RequestBody PriceDTO priceDTO)
+            throws EntityNotFoundException, IllegalArgumentException {
         priceDTO.setId(id);
         return ResponseEntity.ok(priceService.update(priceDTO));
     }
 
     // Eliminar un precio por ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePrice(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePrice(@PathVariable Long id) throws EntityNotFoundException {
         priceService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

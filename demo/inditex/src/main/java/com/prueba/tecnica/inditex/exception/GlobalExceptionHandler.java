@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Manejo de excepciones para entidad no encontrada (Ej: Price no encontrado)
+    public static final String ENTITY_NOT_FOUND = "Entity with ID: %d not found";
+
 
     /**
      * Se encarga de las excepcions del tipo 'EntityNotfoundException', que puede darse cuando pej un precion no es
