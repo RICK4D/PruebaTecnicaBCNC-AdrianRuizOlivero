@@ -16,16 +16,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * The type Global exception handler.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * The constant ENTITY_NOT_FOUND.
+     */
     public static final String ENTITY_NOT_FOUND = "Entity with ID: %d not found";
 
 
     /**
      * Se encarga de las excepcions del tipo 'EntityNotfoundException', que puede darse cuando pej un precion no es
      * encontrado en BBDD.
-     * @param ex
+     *
+     * @param ex the ex
      * @return 404 NOT Found
      */
     @ExceptionHandler(EntityNotFoundException.class)
@@ -36,7 +43,8 @@ public class GlobalExceptionHandler {
     /**
      * Manejo de excepciones relacionadas con la validación de argumentos. Pej: cuando un DTO no cumple las
      * restricciones definidas (@NotNull, @Size, ...)
-     * @param ex
+     *
+     * @param ex the ex
      * @return 400 Bad Request y un body que contiene un mapa entradas tipo nombreAtributo-errorValidacion
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -50,6 +58,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
+    /**
+     * Handle method argument type mismatch response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
         Map<String, String> errorDetails = new HashMap<>();
@@ -58,6 +72,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
 
+    /**
+     * Handle method missing servlet request parameter exception response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<Map<String, String>> handleMethodMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
         Map<String, String> errorDetails = new HashMap<>();
@@ -66,6 +86,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
 
+    /**
+     * Handle method date time parse exception response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
     @ExceptionHandler(DateTimeParseException.class)
     public ResponseEntity<Map<String, String>> handleMethodDateTimeParseException(DateTimeParseException ex) {
         Map<String, String> errorDetails = new HashMap<>();
@@ -74,6 +100,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
 
+    /**
+     * Handle constraint violation response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Map<String, String>> handleConstraintViolation(ConstraintViolationException ex) {
         Map<String, String> errorDetails = new HashMap<>();
@@ -82,6 +114,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
 
+    /**
+     * Handle http message not readable response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, String>> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         Map<String, String> errorDetails = new HashMap<>();
@@ -92,8 +130,9 @@ public class GlobalExceptionHandler {
 
     /**
      * Captura cualquier otra excepción que no haya sido manejada previamente.
-     * @param ex
-     * @param request
+     *
+     * @param ex      the ex
+     * @param request the request
      * @return 500 Internal Server Error
      */
     @ExceptionHandler(Exception.class)

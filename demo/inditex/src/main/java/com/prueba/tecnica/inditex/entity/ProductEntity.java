@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * The type Product entity.
+ */
 @Setter
 @Getter
 @SuperBuilder
@@ -22,10 +25,20 @@ public class ProductEntity extends BaseEntity {
     @Column(name = "category", nullable = false, length = 50)
     private String category;
 
+    /**
+     * Instantiates a new Product entity.
+     */
     public ProductEntity() {
         super();
     }
 
+    /**
+     * Instantiates a new Product entity.
+     *
+     * @param name        the name
+     * @param description the description
+     * @param category    the category
+     */
     public ProductEntity(String name, String description, String category) {
         super();
         this.name = name;

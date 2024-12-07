@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Price dto.
+ */
 @Setter
 @Getter
 @SuperBuilder
@@ -35,6 +38,9 @@ public class PriceDTO extends BaseDTO {
     @NotNull
     private Long productId;
 
+    /**
+     * Instantiates a new Price dto.
+     */
     public PriceDTO() {
         super();
     }

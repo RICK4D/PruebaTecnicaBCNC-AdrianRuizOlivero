@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * The type Brand entity.
+ */
 @Setter
 @Getter
 @SuperBuilder
@@ -17,9 +20,18 @@ public class BrandEntity extends BaseEntity {
     @Column(name = "name", nullable = false, length = 50)
     private String name; // Nombre de la marca
 
+    /**
+     * Instantiates a new Brand entity.
+     */
     public BrandEntity() {
         super();
     }
+
+    /**
+     * Instantiates a new Brand entity.
+     *
+     * @param name the name
+     */
     public BrandEntity(String name) {
         super();
         this.name = name;

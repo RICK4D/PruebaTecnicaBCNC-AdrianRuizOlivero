@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * The type Product dto.
+ */
 @Setter
 @Getter
 @SuperBuilder
@@ -20,6 +23,9 @@ public class ProductDTO extends BaseDTO {
     @Size(min = 3, max = 50)
     private String category;
 
+    /**
+     * Instantiates a new Product dto.
+     */
     public ProductDTO() {
         super();
     }

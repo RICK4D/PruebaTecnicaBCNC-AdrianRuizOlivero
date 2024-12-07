@@ -13,13 +13,35 @@ import java.util.Optional;
 
 import static com.prueba.tecnica.inditex.exception.GlobalExceptionHandler.ENTITY_NOT_FOUND;
 
+/**
+ * The type Abstract service.
+ *
+ * @param <E> the type parameter
+ * @param <D> the type parameter
+ */
 public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
 
 
+    /**
+     * Gets repository.
+     *
+     * @return the repository
+     */
     protected abstract IRepository<E, Long> getRepository();
+
+    /**
+     * Gets copier.
+     *
+     * @return the copier
+     */
     protected abstract AbstractCopier<E, D> getCopier();
 
-    // Guardar una entidad (desde DTO)
+    /**
+     * Save a DTO.
+     *
+     * @param dto the dto
+     * @return the d
+     */
     @Transactional
     public D save(@NonNull D dto) {
         E entity = getCopier().toEntity(dto);
@@ -27,14 +49,25 @@ public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
         return getCopier().toDTO(savedEntity);
     }
 
-    // Buscar por ID (devuelve un Optional del DTO)
+    /**
+     * Find by id optional.
+     *
+     * @param id the id
+     * @return the optional
+     * @throws EntityNotFoundException  the entity not found exception
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     @Transactional
     public Optional<D> findById(@NonNull Long id) throws EntityNotFoundException, IllegalArgumentException {
         validateEntityExists(id);
         return getRepository().findById(id).map(getCopier()::toDTO);
     }
 
-    // Listar todas las entidades (como lista de DTOs)
+    /**
+     * Find all elements.
+     *
+     * @return a list with all elements
+     */
     public List<D> findAll() {
         return getRepository().findAll().stream().map(getCopier()::toDTO).toList();
     }
@@ -49,14 +82,28 @@ public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
     }
 
 
-    // Eliminar por ID
+    /**
+     * Delete by id.
+     *
+     * @param id the id
+     * @throws EntityNotFoundException  the entity not found exception
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     @Transactional
     public void deleteById(@NonNull Long id) throws EntityNotFoundException, IllegalArgumentException {
         validateEntityExists(id);
         getRepository().deleteById(id);
     }
 
-    // Actualizar una entidad (desde DTO)
+    /**
+     * Update an existing element.
+     *
+     * @param dto the dto
+     * @return the d
+     * @throws EntityNotFoundException  the entity not found exception
+     * @throws IllegalArgumentException the illegal argument exception
+     */
+// Actualizar una entidad (desde DTO)
     @Transactional
     public D update(@NonNull D dto) throws EntityNotFoundException, IllegalArgumentException {
         validateEntityExists(dto.getId());

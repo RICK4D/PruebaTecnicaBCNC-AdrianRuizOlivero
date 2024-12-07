@@ -7,6 +7,9 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Price entity.
+ */
 @Setter
 @Getter
 @SuperBuilder
@@ -40,10 +43,25 @@ public class PriceEntity extends BaseEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product; // Relación con la entidad Product
 
+    /**
+     * Instantiates a new Price entity.
+     */
     public PriceEntity() {
         super();
     }
 
+    /**
+     * Instantiates a new Price entity.
+     *
+     * @param brand     the brand
+     * @param product   the product
+     * @param startDate the start date
+     * @param endDate   the end date
+     * @param priceList the price list
+     * @param priority  the priority
+     * @param price     the price
+     * @param currency  the currency
+     */
     public PriceEntity(BrandEntity brand, ProductEntity product, LocalDateTime startDate, LocalDateTime endDate,
                  Integer priceList, Integer priority, Double price, String currency) {
         super();

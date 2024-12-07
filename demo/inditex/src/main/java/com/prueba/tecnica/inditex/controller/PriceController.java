@@ -10,17 +10,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * The type Price controller.
+ */
 @RestController
 @RequestMapping("/api/prices")
 public class PriceController {
 
     private final PriceService priceService;
 
+    /**
+     * Instantiates a new Price controller.
+     *
+     * @param priceService the price service
+     */
     public PriceController(PriceService priceService) {
         this.priceService = priceService;
     }
 
-    // Obtener un precio por ID
+    /**
+     * Gets price.
+     *
+     * @param id the id
+     * @return the price
+     * @throws EntityNotFoundException  the entity not found exception
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     @GetMapping("/{id}")
     public ResponseEntity<PriceDTO> getPrice(@PathVariable Long id) throws EntityNotFoundException, IllegalArgumentException {
         return priceService.findById(id)
@@ -28,19 +43,38 @@ public class PriceController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Obtener todos los precios
+    /**
+     * Gets all prices.
+     *
+     * @return the all prices
+     */
     @GetMapping
     public ResponseEntity<List<PriceDTO>> getAllPrices() {
         return ResponseEntity.ok(priceService.findAll());
     }
 
-    // Crear un nuevo precio
+    /**
+     * Create price response entity.
+     *
+     * @param priceDTO the price dto
+     * @return the response entity
+     * @throws EntityNotFoundException  the entity not found exception
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     @PostMapping
     public ResponseEntity<PriceDTO> createPrice(@RequestBody PriceDTO priceDTO) throws EntityNotFoundException, IllegalArgumentException {
         return ResponseEntity.ok(priceService.save(priceDTO));
     }
 
-    // Actualizar un precio existente
+    /**
+     * Update price response entity.
+     *
+     * @param id       the id
+     * @param priceDTO the price dto
+     * @return the response entity
+     * @throws EntityNotFoundException  the entity not found exception
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     @PutMapping("/{id}")
     public ResponseEntity<PriceDTO> updatePrice(@PathVariable Long id, @RequestBody PriceDTO priceDTO)
             throws EntityNotFoundException, IllegalArgumentException {
@@ -48,21 +82,41 @@ public class PriceController {
         return ResponseEntity.ok(priceService.update(priceDTO));
     }
 
-    // Eliminar un precio por ID
+    /**
+     * Delete price response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     * @throws EntityNotFoundException the entity not found exception
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePrice(@PathVariable Long id) throws EntityNotFoundException {
         priceService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Encontrar precios por productId y brandId
+    /**
+     * Find by product id and brand id response entity.
+     *
+     * @param productId the product id
+     * @param brandId   the brand id
+     * @return the response entity
+     */
     @GetMapping("/search")
     public ResponseEntity<List<PriceDTO>> findByProductIdAndBrandId(@RequestParam Long productId,
                                                                     @RequestParam Long brandId) {
         return ResponseEntity.ok(priceService.findByProductIdAndBrandId(productId, brandId));
     }
 
-    // Encontrar el precio activo en una fecha específica
+    /**
+     * Find active price response entity.
+     *
+     * @param productId the product id
+     * @param brandId   the brand id
+     * @param date      the date
+     * @return the response entity
+     */
+// Encontrar el precio activo en una fecha específica
     @GetMapping("/active")
     public ResponseEntity<PriceDTO> findActivePrice(@RequestParam Long productId, @RequestParam Long brandId,
             @RequestParam String date) {
@@ -72,6 +126,14 @@ public class PriceController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Gets applicable price.
+     *
+     * @param productId the product id
+     * @param brandId   the brand id
+     * @param date      the date
+     * @return the applicable price
+     */
     @GetMapping("/applicable")
     public ResponseEntity<PriceDTO> getApplicablePrice(
             @RequestParam Long productId,

@@ -14,6 +14,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 
+/**
+ * The type Base entity.
+ */
 @Setter
 @Getter
 @SuperBuilder
@@ -23,11 +26,17 @@ public abstract class BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The Id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     protected Long id;
 
+    /**
+     * Instantiates a new Base entity.
+     */
     protected BaseEntity() {
     }
 }

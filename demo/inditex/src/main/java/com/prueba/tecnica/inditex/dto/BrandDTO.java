@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * The type Brand dto.
+ */
 @Setter
 @Getter
 @SuperBuilder
@@ -14,6 +17,9 @@ public class BrandDTO extends BaseDTO {
     @Size(min = 2, max = 50)
     private String name;
 
+    /**
+     * Instantiates a new Brand dto.
+     */
     public BrandDTO() {
         super();
     }
