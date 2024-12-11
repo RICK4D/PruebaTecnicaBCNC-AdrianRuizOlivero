@@ -7,6 +7,7 @@ import com.prueba.tecnica.inditex.exception.EntityNotFoundException;
 import com.prueba.tecnica.inditex.repository.IRepository;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
+import org.springframework.dao.OptimisticLockingFailureException;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,9 +42,12 @@ public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
      *
      * @param dto the dto
      * @return the d
+     * @throws IllegalArgumentException the illegal argument exception
+     * @throws OptimisticLockingFailureException when at least one entity uses optimistic locking and has
+     * a version attribute with a different value from that found in the persistence store.
      */
     @Transactional
-    public D save(@NonNull D dto) {
+    public D save(@NonNull D dto) throws IllegalArgumentException, OptimisticLockingFailureException {
         E entity = getCopier().toEntity(dto);
         E savedEntity = getRepository().save(entity);
         return getCopier().toDTO(savedEntity);
@@ -54,12 +58,9 @@ public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
      *
      * @param id the id
      * @return the optional
-     * @throws EntityNotFoundException  the entity not found exception
      * @throws IllegalArgumentException the illegal argument exception
      */
-    @Transactional
-    public Optional<D> findById(@NonNull Long id) throws EntityNotFoundException, IllegalArgumentException {
-        validateEntityExists(id);
+    public Optional<D> findById(@NonNull Long id) throws IllegalArgumentException {
         return getRepository().findById(id).map(getCopier()::toDTO);
     }
 
@@ -72,26 +73,15 @@ public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
         return getRepository().findAll().stream().map(getCopier()::toDTO).toList();
     }
 
-    private void validateEntityExists(Long id) throws EntityNotFoundException, IllegalArgumentException {
-        if (id == null) {
-            throw new IllegalArgumentException("ID cannot be null");
-        }
-        if (!getRepository().existsById(id)) {
-            throw new EntityNotFoundException(String.format(ENTITY_NOT_FOUND, id));
-        }
-    }
-
 
     /**
      * Delete by id.
      *
      * @param id the id
-     * @throws EntityNotFoundException  the entity not found exception
      * @throws IllegalArgumentException the illegal argument exception
      */
     @Transactional
-    public void deleteById(@NonNull Long id) throws EntityNotFoundException, IllegalArgumentException {
-        validateEntityExists(id);
+    public void deleteById(@NonNull Long id) throws IllegalArgumentException {
         getRepository().deleteById(id);
     }
 
@@ -100,13 +90,12 @@ public abstract class AbstractService<E extends BaseEntity, D extends BaseDTO> {
      *
      * @param dto the dto
      * @return the d
-     * @throws EntityNotFoundException  the entity not found exception
      * @throws IllegalArgumentException the illegal argument exception
+     * @throws OptimisticLockingFailureException when at least one entity uses optimistic locking and has
+     * a version attribute with a different value from that found in the persistence store.
      */
-// Actualizar una entidad (desde DTO)
     @Transactional
-    public D update(@NonNull D dto) throws EntityNotFoundException, IllegalArgumentException {
-        validateEntityExists(dto.getId());
+    public D update(@NonNull D dto) throws IllegalArgumentException, OptimisticLockingFailureException {
         E entity = getCopier().toEntity(dto);
         E updatedEntity = getRepository().update(entity);
         return getCopier().toDTO(updatedEntity);
