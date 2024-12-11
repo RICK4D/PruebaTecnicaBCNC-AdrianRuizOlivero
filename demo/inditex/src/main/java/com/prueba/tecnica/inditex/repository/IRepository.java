@@ -1,6 +1,7 @@
 package com.prueba.tecnica.inditex.repository;
 
 import com.prueba.tecnica.inditex.entity.BaseEntity;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -16,7 +17,7 @@ public interface IRepository<E extends BaseEntity, ID> extends JpaRepository<E, 
      * @param entity the entity
      * @return the e
      */
-    default E update(E entity) {
+    default E update(E entity) throws IllegalArgumentException, OptimisticLockingFailureException {
         return save(entity);
     }
 }
