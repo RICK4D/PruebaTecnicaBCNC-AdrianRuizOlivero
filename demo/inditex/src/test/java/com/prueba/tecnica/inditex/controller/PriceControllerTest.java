@@ -34,7 +34,6 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_ValidRequest1() throws Exception {
-        // Arrange
         Long productId = 1L;
         Long brandId = 1L;
         String date = "2020-06-14T10:00:00";
@@ -52,7 +51,6 @@ class PriceControllerTest {
 
         System.out.println("🟢 Starting: Test 1: petición a las 10:00 del día 14 del producto 1 para la brand 1 (ZARA)");
 
-        // Act & Assert
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
                         .param("brandId", brandId.toString())
@@ -72,7 +70,6 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_ValidRequest2() throws Exception {
-        // Arrange
         Long productId = 1L;
         Long brandId = 1L;
         String date = "2020-06-14T16:00:00";
@@ -90,7 +87,6 @@ class PriceControllerTest {
 
         System.out.println("🟢 Starting: Test 2: petición a las 16:00 del día 14 del producto 1 para la brand 1 (ZARA)");
 
-        // Act & Assert
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
                         .param("brandId", brandId.toString())
@@ -110,7 +106,6 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_ValidRequest3() throws Exception {
-        // Arrange
         Long productId = 1L;
         Long brandId = 1L;
         String date = "2020-06-14T21:00:00";
@@ -128,7 +123,6 @@ class PriceControllerTest {
 
         System.out.println("🟢 Starting: Test 3: petición a las 21:00 del día 14 del producto 1 para la brand 1 (ZARA)");
 
-        // Act & Assert
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
                         .param("brandId", brandId.toString())
@@ -149,7 +143,6 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_ValidRequest4() throws Exception {
-        // Arrange
         Long productId = 1L;
         Long brandId = 1L;
         String date = "2020-06-15T10:00:00";
@@ -167,7 +160,6 @@ class PriceControllerTest {
 
         System.out.println("🟢 Starting: Test 4: petición a las 10:00 del día 15 del producto 1 para la brand 1 (ZARA)");
 
-        // Act & Assert
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
                         .param("brandId", brandId.toString())
@@ -187,7 +179,6 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_ValidRequest5() throws Exception {
-        // Arrange
         Long productId = 1L;
         Long brandId = 1L;
         String date = "2020-06-16T21:00:00";
@@ -205,7 +196,6 @@ class PriceControllerTest {
 
         System.out.println("🟢 Starting: Test 5: petición a las 21:00 del día 16 del producto 1 para la brand 1 (ZARA)");
 
-        // Act & Assert
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
                         .param("brandId", brandId.toString())
@@ -226,7 +216,6 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_InvalidDateFormat() throws Exception {
-        // Arrange
         Long productId = 35455L;
         Long brandId = 1L;
         String date = "invalid-date-format";
@@ -241,7 +230,6 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_MissingParameters() throws Exception {
-        // Act & Assert
         mockMvc.perform(get(BASE_URL))
                 .andExpect(status().isBadRequest());
     }

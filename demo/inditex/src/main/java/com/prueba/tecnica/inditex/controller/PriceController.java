@@ -38,7 +38,7 @@ public class PriceController {
      * @throws IllegalArgumentException the illegal argument exception
      */
     @GetMapping("/{id}")
-    public ResponseEntity<PriceDTO> getPrice(@PathVariable Long id) throws EntityNotFoundException, IllegalArgumentException {
+    public ResponseEntity<PriceDTO> getPrice(@PathVariable Long id) throws IllegalArgumentException {
         return priceService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -65,12 +65,10 @@ public class PriceController {
      * @return the applicable price
      */
     @GetMapping("/applicable")
-    public ResponseEntity<PriceDTO> getApplicablePrice(
-            @RequestParam Long productId,
-            @RequestParam Long brandId,
+    public ResponseEntity<PriceDTO> getApplicablePrice(@RequestParam Long productId, @RequestParam Long brandId,
             @RequestParam String date) {
         LocalDateTime dateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        return priceService.findMoreRelevancePriceBetweenDates(productId, brandId, dateTime)
+        return priceService.findMoreRelevantPriceBetweenDates(productId, brandId, dateTime)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

@@ -48,17 +48,17 @@ class PriceServiceTest {
         priceDTO.setPrice(35.50);
 
         // Simula una respuesta del repository con los datos que le hemos pasado
-        when(priceRepository.findPricesBetweenDates(productId, brandId, date))
-                .thenReturn(List.of(priceEntity));
+        when(priceRepository.findMoreRelevantPriceBetweenDates(productId, brandId, date))
+                .thenReturn(Optional.of(priceEntity));
         // Comprueba que la conversión se haga correctamente
         when(priceCopier.toDTO(priceEntity)).thenReturn(priceDTO);
 
-        Optional<PriceDTO> result = priceService.findMoreRelevancePriceBetweenDates(productId, brandId, date);
+        Optional<PriceDTO> result = priceService.findMoreRelevantPriceBetweenDates(productId, brandId, date);
 
         // Assert
         assertTrue(result.isPresent());
         assertEquals(35.50, result.get().getPrice());
-        verify(priceRepository, times(1)).findPricesBetweenDates(productId, brandId, date);
+        verify(priceRepository, times(1)).findMoreRelevantPriceBetweenDates(productId, brandId, date);
     }
 
     @Test
@@ -67,12 +67,12 @@ class PriceServiceTest {
         Long brandId = 1L;
         LocalDateTime date = LocalDateTime.of(2020, 6, 14, 10, 0);
 
-        when(priceRepository.findPricesBetweenDates(productId, brandId, date)).thenReturn(Collections.emptyList());
+        when(priceRepository.findMoreRelevantPriceBetweenDates(productId, brandId, date)).thenReturn(Optional.empty());
 
-        Optional<PriceDTO> result = priceService.findMoreRelevancePriceBetweenDates(productId, brandId, date);
+        Optional<PriceDTO> result = priceService.findMoreRelevantPriceBetweenDates(productId, brandId, date);
 
 
         assertTrue(result.isEmpty());
-        verify(priceRepository, times(1)).findPricesBetweenDates(productId, brandId, date);
+        verify(priceRepository, times(1)).findMoreRelevantPriceBetweenDates(productId, brandId, date);
     }
 }

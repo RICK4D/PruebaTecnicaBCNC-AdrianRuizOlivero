@@ -45,58 +45,18 @@ public class PriceService extends AbstractService<PriceEntity, PriceDTO> {
         return this.priceCopier;
     }
 
-    /**
-     * Find by product id and brand id list.
-     *
-     * @param productId the product id
-     * @param brandId   the brand id
-     * @return the list
-     */
-    public List<PriceDTO> findByProductIdAndBrandId(Long productId, Long brandId) {
-        return priceRepository.findByProductIdAndBrandId(productId, brandId).stream()
-                .map(getCopier()::toDTO)
-                .toList();
-    }
 
     /**
-     * Find active price by product id and brand id and date optional.
+     * Find more relevant price between dates optional.
      *
      * @param productId the product id
      * @param brandId   the brand id
      * @param date      the date
      * @return the optional
      */
-    public Optional<PriceDTO> findActivePriceByProductIdAndBrandIdAndDate(Long productId, Long brandId, LocalDateTime date) {
-        return priceRepository.findByProductIdAndBrandId(productId, brandId).stream()
-                .filter(price -> date.isAfter(price.getStartDate()) && date.isBefore(price.getEndDate()))
-                .max(Comparator.comparingInt(PriceEntity::getPriority))
+    public Optional<PriceDTO> findMoreRelevantPriceBetweenDates(Long productId, Long brandId, LocalDateTime date) {
+        return priceRepository.findMoreRelevantPriceBetweenDates(productId, brandId, date)
                 .map(getCopier()::toDTO);
-    }
-
-    /**
-     * Find more relevance price between dates optional.
-     *
-     * @param productId the product id
-     * @param brandId   the brand id
-     * @param date      the date
-     * @return the optional
-     */
-    public Optional<PriceDTO> findMoreRelevancePriceBetweenDates(Long productId, Long brandId, LocalDateTime date) {
-        return priceRepository.findPricesBetweenDates(productId, brandId, date).stream()
-                .findFirst()
-                .map(getCopier()::toDTO);
-    }
-
-    /**
-     * Find price between dates list.
-     *
-     * @param productId the product id
-     * @param brandId   the brand id
-     * @param date      the date
-     * @return the list
-     */
-    public List<PriceDTO> findPriceBetweenDates(Long productId, Long brandId, LocalDateTime date) {
-        return getCopier().toDTOList(priceRepository.findPricesBetweenDates(productId, brandId, date));
     }
 
 }
