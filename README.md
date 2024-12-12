@@ -101,6 +101,8 @@ Ejemplo:
     - Validación de flujo completo desde el controlador hasta la base de datos usando MockMvc y H2.
 - **Cobertura con JaCoCo**:
     - **Cobertura total alcanzada**: 89%.
+- **Uso de Annotation Custom con nombre @Generated**: este Annotation se ha utilizado para ignorar alguno elementos a nivel estructural que son interesantes pero para esta demo no se han llegado a usar.
+- Falta corregir algunos elementos en la compilación por problemas de versiones, pero se puede ejecutar sin ningún problema el proyecto generando el reporte de pruebas.
 
 ### Casos de Prueba
 Se implementaron los casos indicados en el enunciado, incluyendo:
@@ -129,7 +131,7 @@ Se implementaron los casos indicados en el enunciado, incluyendo:
     - Uso de ramas separadas (`develop`).
     - Una idea que se tuvo en cuenta lo que daba más trabajo era separar en features por cada funcionalidad (`feat/service`, `feat/entities`, ... )
 - **Tags**:
-    - Marcado de versiones clave (`v1.0.0`).
+    - Marcado de versiones clave (`v1.0.0`, `v1.1.0`).
 - **Commits**:
     - Mensajes claros y significativos, que aportan en ciertos momentos aplicaciones apropiadas para poder comprender mejor lo realizado.
 ---
