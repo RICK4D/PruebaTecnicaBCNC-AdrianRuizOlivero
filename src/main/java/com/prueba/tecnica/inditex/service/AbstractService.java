@@ -3,7 +3,6 @@ package com.prueba.tecnica.inditex.service;
 import com.prueba.tecnica.inditex.copier.AbstractCopier;
 import com.prueba.tecnica.inditex.dto.BaseDTO;
 import com.prueba.tecnica.inditex.entity.BaseEntity;
-import com.prueba.tecnica.inditex.exception.EntityNotFoundException;
 import com.prueba.tecnica.inditex.repository.IRepository;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
@@ -12,7 +11,6 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.prueba.tecnica.inditex.exception.GlobalExceptionHandler.ENTITY_NOT_FOUND;
 
 /**
  * The type Abstract service.
