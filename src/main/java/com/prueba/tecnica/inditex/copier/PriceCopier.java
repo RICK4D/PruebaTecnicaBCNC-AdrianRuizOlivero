@@ -1,5 +1,6 @@
 package com.prueba.tecnica.inditex.copier;
 
+import com.prueba.tecnica.inditex.annotation.Generated;
 import com.prueba.tecnica.inditex.dto.PriceDTO;
 import com.prueba.tecnica.inditex.entity.BrandEntity;
 import com.prueba.tecnica.inditex.entity.PriceEntity;
@@ -25,6 +26,7 @@ public class PriceCopier extends AbstractCopier<PriceEntity, PriceDTO> {
                 .build();
     }
 
+    @Generated
     @Override
     public PriceEntity toEntity(@NonNull PriceDTO dto) {
         // Puntos de mejora se podría realizar respectivos repository para que la entidad que se construya

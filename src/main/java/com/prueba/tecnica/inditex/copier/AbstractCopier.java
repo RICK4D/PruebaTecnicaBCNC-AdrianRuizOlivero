@@ -1,5 +1,6 @@
 package com.prueba.tecnica.inditex.copier;
 
+import com.prueba.tecnica.inditex.annotation.Generated;
 import com.prueba.tecnica.inditex.dto.BaseDTO;
 import com.prueba.tecnica.inditex.entity.BaseEntity;
 
@@ -26,6 +27,7 @@ public abstract class AbstractCopier<E extends BaseEntity, D extends BaseDTO> {
      * @param entities
      * @return
      */
+    @Generated
     public List<D> toDTOList(List<E> entities) {
         return entities.stream()
                 .filter(Objects::nonNull) // Evita posibles valores null
@@ -34,6 +36,7 @@ public abstract class AbstractCopier<E extends BaseEntity, D extends BaseDTO> {
     }
 
     // Método para convertir una lista de DTOs a una lista de entidades
+    @Generated
     public List<E> toEntityList(List<D> dtos) {
         return dtos.stream()
                 .filter(Objects::nonNull) // Evita posibles valores null

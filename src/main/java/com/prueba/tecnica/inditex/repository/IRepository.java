@@ -1,5 +1,6 @@
 package com.prueba.tecnica.inditex.repository;
 
+import com.prueba.tecnica.inditex.annotation.Generated;
 import com.prueba.tecnica.inditex.entity.BaseEntity;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @param <E>  the type parameter
  * @param <ID> the type parameter
  */
+@Generated
 public interface IRepository<E extends BaseEntity, ID> extends JpaRepository<E, ID> {
     /**
      * Update e.

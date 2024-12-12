@@ -100,7 +100,7 @@ Ejemplo:
 - **Pruebas de Integración**:
     - Validación de flujo completo desde el controlador hasta la base de datos usando MockMvc y H2.
 - **Cobertura con JaCoCo**:
-    - **Cobertura total alcanzada**: 100%.
+    - **Cobertura total alcanzada**: 89%.
 
 ### Casos de Prueba
 Se implementaron los casos indicados en el enunciado, incluyendo:
