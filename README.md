@@ -106,11 +106,11 @@ Ejemplo:
 
 ### Casos de Prueba
 Se implementaron los casos indicados en el enunciado, incluyendo:
-1. Petición a las 10:00 del día 14 para el producto `1` y `brand 1`.
-2. Petición a las 16:00 del día 14 para el producto `1` y `brand 1`.
-3. Petición a las 21:00 del día 14 para el producto `1` y `brand 1`.
-4. Petición a las 10:00 del día 15 para el producto `1` y `brand 1`.
-5. Petición a las 21:00 del día 16 para el producto `1` y `brand 1`.
+1. Petición a las 10:00 del día 14 para el `Product 3545` y `brand 1` (ZARA).
+2. Petición a las 16:00 del día 14 para el `Product 3545` y `brand 1` (ZARA).
+3. Petición a las 21:00 del día 14 para el `Product 3545` y `brand 1` (ZARA).
+4. Petición a las 10:00 del día 15 para el `Product 3545` y `brand 1` (ZARA).
+5. Petición a las 21:00 del día 16 para el `Product 3545` y `brand 1` (ZARA).
 
 ---
 

@@ -47,7 +47,7 @@ class PriceControllerTest {
         priceDTO.setPriority(0);
         priceDTO.setPriceList(1);
 
-        System.out.println("🟢 Starting: Test 1: petición a las 10:00 del día 14 del producto 1 para la brand 1 (ZARA)");
+        System.out.println("🟢 Starting: Test 1: petición a las 10:00 del día 14 del producto 35455 para la brand 1 (ZARA)");
 
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
@@ -83,7 +83,7 @@ class PriceControllerTest {
         priceDTO.setPriority(1);
         priceDTO.setPriceList(2);
 
-        System.out.println("🟢 Starting: Test 2: petición a las 16:00 del día 14 del producto 1 para la brand 1 (ZARA)");
+        System.out.println("🟢 Starting: Test 2: petición a las 16:00 del día 14 del producto 35455 para la brand 1 (ZARA)");
 
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
@@ -119,7 +119,7 @@ class PriceControllerTest {
         priceDTO.setPriority(0);
         priceDTO.setPriceList(1);
 
-        System.out.println("🟢 Starting: Test 3: petición a las 21:00 del día 14 del producto 1 para la brand 1 (ZARA)");
+        System.out.println("🟢 Starting: Test 3: petición a las 21:00 del día 14 del producto 35455 para la brand 1 (ZARA)");
 
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
@@ -156,7 +156,7 @@ class PriceControllerTest {
         priceDTO.setPriority(1);
         priceDTO.setPriceList(3);
 
-        System.out.println("🟢 Starting: Test 4: petición a las 10:00 del día 15 del producto 1 para la brand 1 (ZARA)");
+        System.out.println("🟢 Starting: Test 4: petición a las 10:00 del día 15 del producto 35455 para la brand 1 (ZARA)");
 
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
@@ -192,7 +192,7 @@ class PriceControllerTest {
         priceDTO.setPriority(1);
         priceDTO.setPriceList(4);
 
-        System.out.println("🟢 Starting: Test 5: petición a las 21:00 del día 16 del producto 1 para la brand 1 (ZARA)");
+        System.out.println("🟢 Starting: Test 5: petición a las 21:00 del día 16 del producto 35455 para la brand 1 (ZARA)");
 
         mockMvc.perform(get(BASE_URL)
                         .param("productId", productId.toString())
@@ -214,14 +214,14 @@ class PriceControllerTest {
 
     @Test
     void testGetApplicablePrice_InvalidDateFormat() throws Exception {
-        Long productId = 35455L;
-        Long brandId = 1L;
+        long productId = 35455L;
+        long brandId = 1L;
         String date = "invalid-date-format";
 
         // Act & Assert
         mockMvc.perform(get(BASE_URL)
-                        .param("productId", productId.toString())
-                        .param("brandId", brandId.toString())
+                        .param("productId", Long.toString(productId))
+                        .param("brandId", Long.toString(brandId))
                         .param("date", date))
                 .andExpect(status().isBadRequest());
     }
